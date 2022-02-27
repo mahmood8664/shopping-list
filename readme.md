@@ -84,4 +84,9 @@ schema registry tools like
 [Red Hat Service Registry](https://access.redhat.com/documentation/en-us/red_hat_amq/7.6/html/using_amq_streams_on_openshift/service-registry-str) 
 or [Apicurio Registry](https://www.apicur.io/registry/).
 ## Code Statistics Analysis
-Usually I use SonarCube, but I did not do it for this project because lack of time. 
+Usually I use SonarCube, but I did not do it for this project because lack of time.
+## Todos
+- **Exception handling:** For API and inter-microservice communication
+- **Eventual consistency assurance:** In a case of inconsistency (for example network outage)
+, a mechanism have to be responsible to resolve inconsistencies. 
+
