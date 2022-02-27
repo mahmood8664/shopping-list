@@ -63,7 +63,7 @@ its local database.
 
 
 ![select service](./img/2.png)
-##Scalability 
+## Scalability 
 All components of this architecture are horizontally scalable. Because we separate read and write
 part of service, we can optimize databases based on their application. For example using fast write 
 database for write microservice and using fast read database for read microservice. 
