@@ -79,7 +79,7 @@ This is the code coverage of read and write microservices:
 To manage DB schema I used [liquibase](https://liquibase.org/).
 ## Inter-Microservice Communication Schema Management
 For inter-microservice communication, I used a common module between read and write 
-microservice, but it is hard to maintain and scalable, for real world I suggest 
+microservice, but it is hard to maintain and scale, so for real world I suggest 
 schema registry tools like 
 [Red Hat Service Registry](https://access.redhat.com/documentation/en-us/red_hat_amq/7.6/html/using_amq_streams_on_openshift/service-registry-str) 
 or [Apicurio Registry](https://www.apicur.io/registry/).
