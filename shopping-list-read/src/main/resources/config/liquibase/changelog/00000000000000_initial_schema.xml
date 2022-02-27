@@ -1,0 +1,30 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
+
+    <changeSet author="mahmood (generated)" id="1645955298898-1">
+        <createTable tableName="shopping_list_read">
+            <column name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="shopping_list_readPK"/>
+            </column>
+            <column name="count" type="INTEGER"/>
+            <column name="product_id" type="VARCHAR(255)"/>
+            <column name="time" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="user_id" type="VARCHAR(255)"/>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="mahmood (generated)" id="1645955298898-2">
+        <createIndex indexName="TIME_INDEX" tableName="shopping_list_read">
+            <column name="time"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="mahmood (generated)" id="1645955298898-3">
+        <createIndex indexName="USER_ID_INDEX" tableName="shopping_list_read">
+            <column name="user_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

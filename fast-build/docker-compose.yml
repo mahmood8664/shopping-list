@@ -1,0 +1,62 @@
+version: '3.5'
+services:
+  discovery:
+    build: ../discovery
+    container_name: discovery
+    restart: always
+  gateway:
+    build: ../gateway
+    container_name: gateway
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - DISCOVERY_HOST=http://discovery:8761/eureka/
+    depends_on:
+      - discovery
+  postgres:
+    image: postgres:9.6.24
+    container_name: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  redis:
+    image: redis:6.2.6
+    container_name: redis
+    restart: always
+  shopping-list-write:
+    build: ../shopping-list-write
+    container_name: shopping-list-write
+    restart: always
+    environment:
+      - DISCOVERY_HOST=http://discovery:8761/eureka/
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DB_URL=jdbc:postgresql://postgres:5432/postgres
+      - DB_USER=postgres
+      - DB_PASS=postgres
+    depends_on:
+      - discovery
+      - gateway
+      - postgres
+      - redis
+  shopping-list-read:
+    build: ../shopping-list-read
+    container_name: shopping-list-read
+    restart: always
+    environment:
+      - DISCOVERY_HOST=http://discovery:8761/eureka/
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - DB_URL=jdbc:postgresql://postgres:5432/postgres
+      - DB_USER=postgres
+      - DB_PASS=postgres
+    depends_on:
+      - discovery
+      - gateway
+      - postgres
+      - redis
+networks:
+  default:
+    name: shopping_list

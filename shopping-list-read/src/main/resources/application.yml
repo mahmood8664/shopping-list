@@ -1,0 +1,38 @@
+server:
+  port: 8081
+  forward-headers-strategy: framework
+spring:
+  application:
+    name: shopping-list-read
+  datasource:
+    hikari:
+      jdbc-url: ${DB_URL:jdbc:postgresql://localhost:5432/postgres}
+      username: ${DB_USER:postgres}
+      password: ${DB_PASS:postgres}
+      driver-class-name: org.postgresql.Driver
+      maximum-pool-size: 10
+      auto-commit: false
+      schema: public
+  liquibase:
+    contexts: ${spring.profiles.active}
+    change-log: classpath:config/liquibase/master.xml
+    database-change-log-lock-table: databasechangeloglock_read
+    database-change-log-table: databasechangelog_read
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_HOST:http://localhost:8761/eureka/}
+springdoc:
+  packages-to-scan: io.jur.assignment
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

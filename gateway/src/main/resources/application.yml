@@ -1,0 +1,47 @@
+server:
+  port: 8080
+  forward-headers-strategy: framework
+spring:
+  cloud:
+    gateway:
+      default-filters:
+      routes:
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+          - Path=/v3/api-docs/**
+          filters:
+          - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+        - id: shopping-list-read-service
+          predicates:
+          - Path=/shopping-list-read/**
+          uri: lb://shopping-list-read
+          filters:
+            - RewritePath=/shopping-list-read/(?<path>.*), /$\{path}
+        - id: shopping-list-write-service
+          predicates:
+          - Path=/shopping-list-write/**
+          uri: lb://shopping-list-write
+          filters:
+            - RewritePath=/shopping-list-write/(?<path>.*), /$\{path}
+      discovery:
+        locator:
+          enabled: true
+  application:
+    name: gateway
+  main:
+    web-application-type: reactive
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_HOST:http://localhost:8761/eureka/}
+    registry-fetch-interval-seconds: 3
+springdoc:
+  packages-to-scan: io.jur.assignment
+  swagger-ui:
+    use-root-path: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
