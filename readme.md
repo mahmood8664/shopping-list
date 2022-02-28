@@ -27,7 +27,7 @@ docker-compose up --build
 **It takes considerable amount of time to build :-). drink a coffee during build.**
 <br/>
 <br/>
-**If you have java installed in your system you can run all microservices with more speed using:** 
+**If you have java installed on your system you can run all microservices with more speed using:** 
 ```shell
 ./run.sh
 ```
